@@ -1,0 +1,50 @@
+#viewport {
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  perspective: 400;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.28, rgb(69,132,180)), color-stop(0.64, rgb(31,71,120)) );
+
+}
+
+#world {
+  height: 512px;
+  left: 50%;
+  margin-left: -256px;
+  margin-top: -256px;
+  position: absolute;
+  top: 50%;
+  transform-style: preserve-3d;
+  width: 512px;
+  background-color: rgba( 255, 0, 0, .2 );
+  zoom: 100%;
+
+}
+.test{
+  color: green
+}
+img{
+  margin: 0 auto;
+  height: 400px;
+  width: 400px;
+  zoom:100%;
+  position: relative;
+  z-index:2;
+  /*border: 1px solid black;*/
+}
+.cloudlayer {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 256px;
+		height: 256px;
+		margin-left: -128px;
+		margin-top: -128px;
+		-webkit-transition: opacity .5s ease-out;
+		-moz-transition: opacity .5s ease-out;
+		-o-transition: opacity .5s ease-out;
+		transition: opacity .5s ease-out;
+}
