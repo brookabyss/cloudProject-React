@@ -18,8 +18,7 @@ class World extends Component {
       'transform':('translateZ('+this.d + 'px) '+ 'rotateX('+this.worldXAngle + 'deg) '+'rotateY('+this.worldYAngle + 'deg)')
     }
     w.style.transform=styleChange.transform
-    console.log(w.style)
-
+    // console.log(w.style)
   }
 
   changeAngle(e){
@@ -34,7 +33,7 @@ class World extends Component {
   render(){
     var bases=[]
     for(var j=0; j<3; j++){
-      bases.push(<CloudBase texture={10}/>)
+      bases.push(<CloudBase BaseId={j} textureSize={10}/>)
     }
     return (
       <div id="world" style={this.wstyle} >

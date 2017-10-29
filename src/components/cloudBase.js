@@ -4,9 +4,10 @@ import CloudLayer from './cloudLayer'
 class CloudBase extends Component {
   constructor(props){
     super(props)
-
+    this.BaseId=this.props.BaseId
     this.basestyles;
-    this.textures=this.props.texture;
+    this.textures=this.props.textureSize;
+    this.clouds=[]
   }
   genearteBaseCoordinates(){
       var x = 100 - ( Math.random() * 100 );
@@ -15,25 +16,34 @@ class CloudBase extends Component {
       var t = 'translateX( ' + x + 'px ) translateY( ' + y + 'px ) translateZ( ' + z + 'px )';
 
       this.basestyles={
-        "webkitTransform":t,
+        "WebkitTransform":t,
   			"MozTransform" :t,
-  			"oTransform" :t,
+  			"OTransform" :t,
   			"transform" : t
       }
       return this.basestyles
 
 
   }
+
   generateCloudLayers(){
 
-    var clouds=[]
+    this.clouds=[]
+    var currentCloud;
     for(var i=0;i<this.textures;i++){
-      clouds.push(<CloudLayer/>)
+      currentCloud=<CloudLayer ref="childCloud" BaseId={this.BaseId+1} textureId={i+1}/>
+      this.clouds.push(currentCloud)
+      // document.addEventListener('DOMContentLoaded',this.triggerUpdateCloud.bind(this,currentCloud))
     }
-    return clouds
+    return this.clouds
   }
-  render(){
+  triggerUpdateCloud(curr){
+    this.refs.childCloud.animateLayer(curr)
 
+  }
+
+  render(){
+    // document.addEventListener('DOMContentLoaded', this.animateLayer.bind(this));
     return (
       <div className="cloudbase" style={this.genearteBaseCoordinates()}>
       {this.generateCloudLayers()}
