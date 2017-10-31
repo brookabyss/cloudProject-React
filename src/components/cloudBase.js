@@ -11,7 +11,7 @@ class CloudBase extends Component {
   }
   genearteBaseCoordinates(){
       var x = 100 - ( Math.random() * 100 );
-  		var y = 300 - ( Math.random() * 250 );
+  		var y = 330 - ( Math.random() * 250 );
   		var z = 50 - ( Math.random() * 50 );
       var t = 'translateX( ' + x + 'px ) translateY( ' + y + 'px ) translateZ( ' + z + 'px )';
 

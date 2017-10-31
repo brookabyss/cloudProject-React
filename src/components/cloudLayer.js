@@ -9,46 +9,63 @@ class CloudLayer extends Component{
     this.BaseId=this.props.BaseId
     this.textureId=this.props.textureId
     this.imgId="Base"+this.BaseId+"texture"+this.textureId
-    this.layerData={}
     this.worldXAngle=0;
     this.worldYAngle=0;
+    this.state={
+      status:true,
+      data:{
+        x:20 - ( Math.random() * 30 ),
+        y:20 - ( Math.random() * 20 ),
+        z:20 - ( Math.random() * 20 ),
+        a:Math.random() * 360,
+        s:1 + Math.random(),
+        speed:0.1*Math.random(),
+      },
+      layerstyles:{}
+
+    }
   }
   generateCloudCoordinates(){
-    var x = 20 - ( Math.random() * 30 );
-		var y = 20 - ( Math.random() * 20 );
-		var z = 20 - ( Math.random() * 20 );
-		var a = Math.random() * 360;
-		var s = .25 + Math.random();
-    var t = 'translateX( ' + x + 'px ) translateY( ' + y + 'px ) translateZ( ' + z + 'px ) rotateZ( ' + a + 'deg ) scale( ' + s + ' )';
-    this.layerData={
-      x:x,
-      y:y,
-      z:z,
-      a:a,
-      s:s,
-      speed: 0.1*Math.random()
-    }
-    this.layerstyles={
+    var t = 'translateX( ' + this.state.data.x + 'px ) translateY( ' + this.state.data.y + 'px ) translateZ( ' + this.state.data.z + 'px ) rotateZ( ' + this.state.data.a + 'deg ) scale( ' + this.state.data.s + ' )';
+    return ({
       "WebkitTransform":t,
 			"MozTransform" :t,
 			"OTransform" :t,
 			"transform" : t
-    }
-    return this.layerstyles
+    })
+
   }
 
 
   animateLayer (){
-    var currimg= document.getElementById(this.imgId)
-    this.layerData.a+=this.layerData.speed
-    var t = 'translateX( ' + this.layerData.x + 'px ) translateY( ' + this.layerData.y + 'px ) translateZ( ' + this.layerData.z + 'px ) rotateZ( ' + this.layerData.a + 'deg ) scale( ' + this.layerData.s + ')';
-			currimg.style.webkitTransform =
-			currimg.style.MozTransform =
-			currimg.style.oTransform =
-			currimg.style.transform = t;
-      console.log(currimg)
-      requestAnimationFrame(this.animateLayer.bind(this))
+    console.log("hehehehe")
+    var new_a=this.state.data.a + this.state.data.speed
+    var new_state={
+      status:false,
+      data:{
+        x:this.state.data.x,
+        y:this.state.data.y,
+        z:this.state.data.z,
+        a:new_a,
+        s:this.state.data.s,
+        speed:0.3*Math.random(),
+      },
+      layerstyles:{}
+
     }
+
+    var t = 'translateX( ' + new_state.data.x + 'px ) translateY( ' + new_state.data.y + 'px ) translateZ( ' + new_state.data.z + 'px ) rotateZ( ' + new_state.data.a + 'deg ) scale( ' + new_state.data.s + ' )';
+
+    new_state.layerstyles={
+      "WebkitTransform":t,
+      "MozTransform" :t,
+      "OTransform" :t,
+      "transform" : t
+    }
+    this.setState(new_state)
+    console.log(this.state.data.a)
+    requestAnimationFrame(this.animateLayer.bind(this))
+  }
 
 
 
@@ -57,9 +74,12 @@ class CloudLayer extends Component{
 
 
   render(){
+    if(this.state.status){
+      this.state.layerstyles=this.generateCloudCoordinates()
+    }
     document.addEventListener("DOMContentLoaded",this.animateLayer.bind(this))
     return(
-      <img id={this.imgId} className="cloudlayer" src={this.src} style={this.generateCloudCoordinates()}/>
+      <img id={this.imgId} className="cloudlayer" src={this.src} style={this.state.layerstyles}/>
     )
   }
 }

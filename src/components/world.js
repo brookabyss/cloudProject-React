@@ -8,31 +8,31 @@ class World extends Component {
     this.worldYAngle=0
     this.d=0
     this.wstyle={
-      'transform':'translateZ(0px) rotateX(0deg) rotateY(0deg)'
+      'transform':'translateZ(0px) rotateX(0deg) rotateY(0deg) scale(2)'
     }
   }
 
-  updateView() {
+  updateView(scale) {
     var w= document.getElementById('world')
     var styleChange={
-      'transform':('translateZ('+this.d + 'px) '+ 'rotateX('+this.worldXAngle + 'deg) '+'rotateY('+this.worldYAngle + 'deg)')
+      'transform':('translateZ('+this.d + 'px) '+ 'rotateX('+this.worldXAngle + 'deg) '+'rotateY('+this.worldYAngle + 'deg) scale('+scale+')')
     }
     w.style.transform=styleChange.transform
     // console.log(w.style)
   }
 
-  changeAngle(e){
+  changeAngle(e,scale){
     //inst is the current instance of world
     this.worldYAngle = -( .5 - ( e.clientX / window.innerWidth ) ) * 180;
     this.worldXAngle = ( .5 - ( e.clientY / window.innerHeight ) ) * 180;
-    this.updateView()
+    this.updateView(scale)
   }
 
 
 
   render(){
     var bases=[]
-    for(var j=0; j<3; j++){
+    for(var j=0; j<20; j++){
       bases.push(<CloudBase BaseId={j} textureSize={10}/>)
     }
     return (
